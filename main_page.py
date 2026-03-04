@@ -4,6 +4,7 @@ import datetime
 import os
 import csv
 import requests
+import customtkinter as ctk
 from tkinter import ttk
 from tkinter import filedialog
 from app_page import AppPage
@@ -29,15 +30,18 @@ class MainPage(AppPage):
         self.fields = ["computerName", "domain", "passphrase", "portalStatus"]
 
         # Initialize Main Page GUI
-        partner_default = self._add_frame(
-            'Partner Portal'
-        )
-        client_default = self._add_frame(
-            'Client Name'
-        )
-        api_default = self._add_frame('API Key')
-        site_default = self._add_frame('SiteID')
+        partner_default = self._add_frame('')
+        client_default = self._add_frame('')
+        api_default = self._add_frame('')
+        site_default = self._add_frame('')
         buttons = self._add_frame('')
+        self.frames = [partner_default, client_default, api_default, site_default, buttons]
+        self.frame_index = 0
+        for frame in self.frames:
+            frame.grid(row=self.frame_index, column=0, sticky="nsew")
+            frame.columnconfigure(index=0, weight=1)
+            frame.rowconfigure(index=self.frame_index, weight=1)
+            self.frame_index += 1
 
         for portal in PORTALS:
             if portal == '':
@@ -47,56 +51,56 @@ class MainPage(AppPage):
         if self.portal_count == 0:
             LabelInput(partner_default, 'Like: https://<?>.sentinelone.net',
                        var=self._vars['Portal'],
-                       ).grid(row=0, column=0, sticky=(tk.W + tk.E)
-                          )
+                       ).grid(row=0, column=0, sticky="nsew"
+                              )
 
         else:
             self.portal_list = [portal for portal in PORTALS if portal != '']
             self.portal_list_names = [portal[0] for portal in self.portal_list]
-            LabelInput(partner_default, '', input_class=ttk.Radiobutton,
+            LabelInput(partner_default, 'Partner Portal', input_class=ttk.Radiobutton,
                        var=self._vars['Portal'],
                        input_args={'values': self.portal_list_names}
-                       ).grid(row=0, column=0, sticky=(tk.W + tk.E)
+                       ).grid(row=0, column=0, sticky=(ctk.W + ctk.E)
                           )
 
-        LabelInput(client_default, '',
+        LabelInput(client_default, 'Client Name',
                    var=self._vars['Client Name'],
-                   ).grid(row=1, column=0, sticky=(tk.W + tk.E)
+                   ).grid(row=1, column=0, sticky=(ctk.W + ctk.E)
                           )
 
         if API == '':
-            LabelInput(api_default, '',
+            LabelInput(api_default, 'API Key',
                        var=self._vars['API'],
-                       ).grid(row=2, column=0, sticky=(tk.W + tk.E), columnspan=8
+                       ).grid(row=2, column=0, sticky=(ctk.W + ctk.E), columnspan=8
                               )
 
-        LabelInput(site_default, '',
+        LabelInput(site_default, 'SiteID',
                    var=self._vars['SiteID'],
-                   ).grid(row=3, column=0, sticky=(tk.W + tk.E)
+                   ).grid(row=3, column=0, sticky=(ctk.W + ctk.E)
                           )
 
-        self.run_button = tk.Button(buttons, text='Run',
+        self.run_button = ctk.CTkButton(buttons, text='Run',
                                     command=self._on_run
                                     )
         self.run_button.grid(row=0, column=1, sticky='ew')
 
-        self.select_target = tk.Button(buttons, text='Change Folder',
+        self.select_target = ctk.CTkButton(buttons, text='Change Folder',
                                        command=self._on_target
                                        )
         self.select_target.grid(row=0, column=0, sticky='ew')
 
-        self.quit_button = tk.Button(
+        self.quit_button = ctk.CTkButton(
             buttons,
             text='Quit',
             command=self._on_quit
         )
         self.quit_button.grid(row=4, column=0, sticky='ew')
 
-        self.status = tk.StringVar(
+        self.status = ctk.StringVar(
             None, 'Status: '
                   'Please change output folder or run with defaults\n(default is your Documents folder)...'
         )
-        ttk.Label(
+        ctk.CTkLabel(
             self, textvariable=self.status, wraplength=225, justify='left'
         ).grid(sticky=(tk.W + tk.E), row=5, padx=10)
 

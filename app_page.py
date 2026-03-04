@@ -1,8 +1,9 @@
 import tkinter as tk
 from tkinter import ttk
+import customtkinter as ctk
 
 
-class AppPage(ttk.Frame):
+class AppPage(ctk.CTkFrame):
     """Application page class from which all other pages will inherit."""
 
     def __init__(self, *args, **kwargs):
@@ -11,8 +12,12 @@ class AppPage(ttk.Frame):
 
     def _add_frame(self, label, cols=2):
 
-        frame = ttk.LabelFrame(self, text=label)
+        frame = ctk.CTkFrame(self)
         frame.grid(sticky=tk.W + tk.E)
+        frame_label = ctk.CTkLabel(
+            master=frame,
+            text=label,
+        )
         for i in range(cols):
             frame.columnconfigure(i, weight=1)
         return frame
