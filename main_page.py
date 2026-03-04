@@ -64,10 +64,11 @@ class MainPage(AppPage):
                    ).grid(row=1, column=0, sticky=(tk.W + tk.E)
                           )
 
-        LabelInput(api_default, '',
-                   var=self._vars['API'],
-                   ).grid(row=2, column=0, sticky=(tk.W + tk.E), columnspan=8
-                          )
+        if API == '':
+            LabelInput(api_default, '',
+                       var=self._vars['API'],
+                       ).grid(row=2, column=0, sticky=(tk.W + tk.E), columnspan=8
+                              )
 
         LabelInput(site_default, '',
                    var=self._vars['SiteID'],
