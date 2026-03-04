@@ -1,0 +1,7 @@
+[project]
+name = "s1-passphrases"
+version = "1.1"
+description = "Simple GUI to pull Sentinel One passphrases via API"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = ['requests']

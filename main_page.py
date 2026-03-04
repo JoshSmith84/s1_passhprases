@@ -169,6 +169,8 @@ class MainPage(AppPage):
             for portal in self.portal_list:
                 if self._vars['Portal'].get() == portal[0]:
                     self.portal_url = portal[1]
+        else:
+            self.portal_url = self._vars['Portal'].get()
 
         for decom_answer in ['no','yes']:
             for line in self.pull_results(
