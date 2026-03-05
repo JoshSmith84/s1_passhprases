@@ -32,12 +32,31 @@ class MainPage(AppPage):
         partner_default = self._add_frame(
             'Partner Portal'
         )
+
         client_default = self._add_frame(
             'Client Name'
         )
         api_default = self._add_frame('API Key')
         site_default = self._add_frame('SiteID')
         buttons = self._add_frame('')
+
+        # frame_list = [partner_default, client_default, api_default, site_default, buttons]
+
+        # partner_default.grid(row=0, column=0, sticky="nsew")
+        # client_default.grid(row=1, column=0, sticky="nsew")
+        # api_default.grid(row=2, column=0, sticky="nsew")
+        # site_default.grid(row=3, column=0, sticky="nsew")
+        # buttons.grid(row=4, column=0, sticky="nsew")
+
+        # for frame in frame_list:
+        #     row = 0
+        #     frame.grid(row=row, column=0, sticky="nsew")
+        #     row += 1
+        #     ttk.Separator(self, orient="horizontal").grid(
+        #         row=row, column=0, sticky="nsew"
+        #     )
+        #     row += 1
+
 
         for portal in PORTALS:
             if portal == '':
@@ -59,20 +78,21 @@ class MainPage(AppPage):
                        ).grid(row=0, column=0, sticky=(tk.W + tk.E)
                           )
 
+
         LabelInput(client_default, '',
                    var=self._vars['Client Name'],
-                   ).grid(row=1, column=0, sticky=(tk.W + tk.E)
+                   ).grid(row=0, column=0, sticky=(tk.W + tk.E)
                           )
 
         if API == '':
             LabelInput(api_default, '',
                        var=self._vars['API'],
-                       ).grid(row=2, column=0, sticky=(tk.W + tk.E), columnspan=8
+                       ).grid(row=0, column=0, sticky=(tk.W + tk.E), columnspan=8
                               )
 
         LabelInput(site_default, '',
                    var=self._vars['SiteID'],
-                   ).grid(row=3, column=0, sticky=(tk.W + tk.E)
+                   ).grid(row=0, column=0, sticky=(tk.W + tk.E)
                           )
 
         self.run_button = tk.Button(buttons, text='Run',
@@ -213,6 +233,7 @@ class MainPage(AppPage):
         self.status.set(f'Output Folder set to: \n{self.output_folder}. '
                         f'\nChoose Run to continue...'
                         )
+
 
     @staticmethod
     def log_error(err_file, message) -> None:

@@ -12,7 +12,7 @@ class AppPage(ttk.Frame):
     def _add_frame(self, label, cols=2):
 
         frame = ttk.LabelFrame(self, text=label)
-        frame.grid(sticky=tk.W + tk.E)
+        frame.grid(sticky=tk.W + tk.E, pady=10)
         for i in range(cols):
             frame.columnconfigure(i, weight=1)
         return frame

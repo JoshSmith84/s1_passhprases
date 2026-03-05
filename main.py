@@ -23,9 +23,6 @@ class Application(tk.Tk):
         self.m_page.grid(row=1, padx=10, sticky=(tk.W + tk.E))
 
 
-
-
-
 if __name__ == "__main__":
     app = Application()
     app.grid_columnconfigure(0, weight=1)
